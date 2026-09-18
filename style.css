@@ -1,0 +1,968 @@
+/* =========================================
+   GENERAL
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+
+    min-height: 100vh;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff4e6,
+            #ffe0ec,
+            #e6f7ff
+        );
+
+    color: #222;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+
+/* =========================================
+   COMMON
+========================================= */
+
+.small-title {
+    font-size: 12px;
+
+    letter-spacing: 4px;
+
+    color: #777;
+
+    margin-bottom: 12px;
+}
+
+h1 {
+    font-size: 50px;
+
+    letter-spacing: 4px;
+
+    font-weight: 900;
+}
+
+h1 span {
+    color: #ff5c8a;
+}
+
+
+/* =========================================
+   HOME
+========================================= */
+
+.hero {
+
+    min-height: 100vh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    padding: 40px 20px;
+}
+
+
+.plane {
+
+    font-size: 45px;
+
+    margin-bottom: 15px;
+
+    animation: fly 3s ease-in-out infinite;
+}
+
+
+@keyframes fly {
+
+    0%, 100% {
+        transform: translateX(-15px) rotate(-5deg);
+    }
+
+    50% {
+        transform: translateX(15px) rotate(5deg);
+    }
+
+}
+
+
+.subtitle {
+
+    font-size: 18px;
+
+    line-height: 1.6;
+
+    margin: 15px 0 25px;
+
+    color: #555;
+}
+
+
+/* =========================================
+   DESTINATION
+========================================= */
+
+.destination-card {
+
+    width: 100%;
+
+    max-width: 650px;
+
+    height: 280px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    border-radius: 28px;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,0.15);
+
+    margin-bottom: 20px;
+}
+
+
+.destination-card img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+
+.destination-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            rgba(0,0,0,0.05),
+            rgba(0,0,0,0.55)
+        );
+}
+
+
+.destination-overlay span {
+
+    font-size: 11px;
+
+    letter-spacing: 3px;
+}
+
+
+.destination-overlay h2 {
+
+    font-size: 42px;
+
+    margin: 8px 0;
+}
+
+
+.destination-overlay p {
+
+    font-size: 16px;
+}
+
+
+/* =========================================
+   TRIP INFO
+========================================= */
+
+.trip-info {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 15px;
+
+    margin-bottom: 25px;
+}
+
+
+.trip-info div {
+
+    background: rgba(255,255,255,0.85);
+
+    padding: 14px 22px;
+
+    border-radius: 18px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 4px;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,0.06);
+}
+
+
+.trip-info span {
+
+    font-size: 22px;
+}
+
+
+.trip-info small {
+
+    color: #999;
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+}
+
+
+.trip-info strong {
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   GENERAL BUTTON
+========================================= */
+
+.hero button,
+.result-screen button {
+
+    background: #222;
+
+    color: white;
+
+    padding: 16px 32px;
+
+    border-radius: 50px;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    transition: 0.3s;
+}
+
+
+.hero button:hover,
+.result-screen button:hover {
+
+    transform: scale(1.06);
+
+    background: #ff5c8a;
+}
+
+
+.hint {
+
+    margin-top: 15px;
+
+    color: #999;
+
+    font-size: 12px;
+}
+
+
+/* =========================================
+   NAME SCREEN
+========================================= */
+
+.name-screen {
+
+    display: none;
+
+    min-height: 100vh;
+
+    text-align: center;
+
+    padding: 80px 20px;
+}
+
+
+.name-screen input {
+
+    width: 100%;
+
+    max-width: 350px;
+
+    padding: 16px 20px;
+
+    border: none;
+
+    outline: none;
+
+    border-radius: 50px;
+
+    background: rgba(255,255,255,0.9);
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.08);
+
+    font-size: 15px;
+
+    text-align: center;
+
+    color: #222;
+}
+
+
+.name-screen input::placeholder {
+
+    color: #aaa;
+}
+
+
+.name-screen input:focus {
+
+    box-shadow:
+        0 0 0 3px rgba(255,92,138,0.25);
+}
+
+
+.name-screen .continue-btn {
+
+    background: #222;
+
+    color: white;
+
+    padding: 15px 35px;
+
+    border-radius: 50px;
+
+    font-weight: bold;
+
+    transition: 0.3s;
+}
+
+
+.name-screen .continue-btn:hover {
+
+    background: #ff5c8a;
+
+    transform: scale(1.06);
+}
+
+
+/* =========================================
+   DATE SCREEN
+========================================= */
+
+.date-screen {
+
+    display: none;
+
+    min-height: 100vh;
+
+    text-align: center;
+
+    padding: 80px 20px;
+}
+
+
+.section-subtitle {
+
+    color: #666;
+
+    margin: 15px 0 40px;
+}
+
+
+.dates {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 18px;
+
+    flex-wrap: wrap;
+
+    margin-bottom: 35px;
+}
+
+
+.date-btn {
+
+    width: 130px;
+
+    height: 130px;
+
+    border-radius: 25px;
+
+    background: rgba(255,255,255,0.9);
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,0.08);
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    transition: 0.3s;
+}
+
+
+.date-btn strong {
+
+    font-size: 45px;
+
+    color: #222;
+}
+
+
+.date-btn span {
+
+    font-size: 10px;
+
+    letter-spacing: 3px;
+
+    color: #999;
+}
+
+
+.date-btn:hover {
+
+    transform: translateY(-8px);
+
+    background: #fff;
+}
+
+
+.date-btn.selected {
+
+    background: #ff5c8a;
+
+    color: white;
+
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 15px 35px rgba(255,92,138,0.3);
+}
+
+
+.date-btn.selected strong,
+.date-btn.selected span {
+
+    color: white;
+}
+
+
+.continue-btn {
+
+    background: #222;
+
+    color: white;
+
+    padding: 15px 35px;
+
+    border-radius: 50px;
+
+    font-weight: bold;
+
+    opacity: 1;
+
+    transition: 0.3s;
+}
+
+
+.continue-btn:hover:not(:disabled) {
+
+    background: #ff5c8a;
+
+    transform: scale(1.06);
+}
+
+
+.continue-btn:disabled {
+
+    opacity: 0.35;
+
+    cursor: not-allowed;
+}
+
+
+/* =========================================
+   CHOICE SCREEN
+========================================= */
+
+.choice-screen {
+
+    display: none;
+
+    min-height: 100vh;
+
+    padding: 70px 20px;
+
+    text-align: center;
+}
+
+
+.selected-date {
+
+    display: inline-block;
+
+    margin-top: 15px;
+
+    padding: 8px 18px;
+
+    background: #fff;
+
+    border-radius: 30px;
+
+    color: #ff5c8a;
+
+    font-weight: bold;
+
+    font-size: 13px;
+}
+
+
+.choice-subtitle {
+
+    color: #666;
+
+    margin: 15px 0 40px;
+}
+
+
+/* =========================================
+   OPTIONS
+========================================= */
+
+.options {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: stretch;
+
+    gap: 25px;
+
+    max-width: 1200px;
+
+    margin: auto;
+
+    flex-wrap: wrap;
+}
+
+
+.option-card {
+
+    width: 350px;
+
+    overflow: hidden;
+
+    border-radius: 28px;
+
+    background: rgba(255,255,255,0.92);
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,0.10);
+
+    transition: 0.3s;
+}
+
+
+.option-card:hover {
+
+    transform: translateY(-10px);
+
+    box-shadow:
+        0 25px 50px rgba(0,0,0,0.15);
+}
+
+
+/* =========================================
+   ACTIVITY IMAGE
+========================================= */
+
+.activity-image {
+
+    height: 210px;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+
+.activity-image img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+    transition: 0.5s;
+}
+
+
+.option-card:hover .activity-image img {
+
+    transform: scale(1.06);
+}
+
+
+.image-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            rgba(0,0,0,0.05),
+            rgba(0,0,0,0.5)
+        );
+}
+
+
+.image-overlay span {
+
+    font-size: 55px;
+}
+
+
+.image-overlay p {
+
+    font-size: 11px;
+
+    letter-spacing: 4px;
+
+    font-weight: bold;
+}
+
+
+/* =========================================
+   ACTIVITY CONTENT
+========================================= */
+
+.activity-content {
+
+    padding: 25px;
+}
+
+
+.activity-tag {
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    color: #888;
+}
+
+
+.activity-content h2 {
+
+    font-size: 24px;
+
+    margin: 10px 0;
+}
+
+
+.activity-content > p {
+
+    color: #777;
+
+    margin-bottom: 18px;
+}
+
+
+/* =========================================
+   DETAILS
+========================================= */
+
+.activity-details {
+
+    display: flex;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 7px;
+
+    margin-bottom: 18px;
+}
+
+
+.activity-details span {
+
+    background: #f5f5f5;
+
+    padding: 7px 9px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+
+    color: #555;
+}
+
+
+/* =========================================
+   BUDGET
+========================================= */
+
+.budget {
+
+    background: #fff1f5;
+
+    color: #ff5c8a;
+
+    padding: 10px;
+
+    border-radius: 12px;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+    margin-bottom: 18px;
+}
+
+
+/* =========================================
+   CHOOSE BUTTON
+========================================= */
+
+.choose-btn {
+
+    width: 100%;
+
+    background: #222;
+
+    color: white;
+
+    padding: 13px;
+
+    border-radius: 50px;
+
+    font-weight: bold;
+
+    transition: 0.3s;
+}
+
+
+.choose-btn:hover {
+
+    background: #ff5c8a;
+
+    transform: scale(1.03);
+}
+
+
+/* =========================================
+   RESULT SCREEN
+========================================= */
+
+.result-screen {
+
+    display: none;
+
+    min-height: 100vh;
+
+    text-align: center;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-direction: column;
+
+    padding: 30px;
+}
+
+
+.result-icon {
+
+    font-size: 80px;
+
+    animation: bounce 1s infinite alternate;
+}
+
+
+@keyframes bounce {
+
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-15px);
+    }
+
+}
+
+
+.final-card {
+
+    background: rgba(255,255,255,0.9);
+
+    padding: 30px 45px;
+
+    border-radius: 25px;
+
+    margin: 20px 0;
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,0.08);
+}
+
+
+.final-card p {
+
+    color: #555;
+
+    line-height: 1.8;
+}
+
+
+.final-text {
+
+    margin-bottom: 20px;
+
+    color: #777;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+    h1 {
+
+        font-size: 36px;
+
+    }
+
+
+    .destination-card {
+
+        height: 230px;
+
+    }
+
+
+    .destination-overlay h2 {
+
+        font-size: 34px;
+
+    }
+
+
+    .trip-info {
+
+        flex-direction: column;
+
+        width: 100%;
+
+        max-width: 350px;
+
+    }
+
+
+    .trip-info div {
+
+        width: 100%;
+
+    }
+
+
+    .name-screen {
+
+        padding-top: 100px;
+
+    }
+
+
+    .name-screen input {
+
+        max-width: 320px;
+
+    }
+
+
+    .date-btn {
+
+        width: 100px;
+
+        height: 110px;
+
+    }
+
+
+    .date-btn strong {
+
+        font-size: 35px;
+
+    }
+
+
+    .option-card {
+
+        width: 95%;
+
+        max-width: 380px;
+
+    }
+
+}

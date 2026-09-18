@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TripQuest ✈️</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================
+         HOME SCREEN
+    ========================================== -->
+
+    <section class="hero" id="homeScreen">
+
+        <!-- Flying Plane -->
+
+        <div class="plane">
+            ✈️
+        </div>
+
+
+        <!-- Small Heading -->
+
+        <p class="small-title">
+            A LITTLE ADVENTURE AWAITS
+        </p>
+
+
+        <!-- Website Name -->
+
+        <h1>
+            TRIP<span>QUEST</span>
+        </h1>
+
+
+        <!-- Description -->
+
+        <p class="subtitle">
+            One day. One crazy plan.<br>
+            A lot of memories. ✨
+        </p>
+
+
+
+        <!-- =====================================
+             SANGLI DESTINATION
+        ====================================== -->
+
+        <div class="destination-card">
+
+            <img
+                src="./sangli.jpg"
+                alt="Sangli"
+            >
+
+            <div class="destination-overlay">
+
+                <span>
+                    📍 DESTINATION
+                </span>
+
+                <h2>
+                    Sangli
+                </h2>
+
+                <p>
+                    Maharashtra
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =====================================
+             TRIP INFORMATION
+        ====================================== -->
+
+        <div class="trip-info">
+
+
+            <!-- Dates -->
+
+            <div>
+
+                <span>
+                    📅
+                </span>
+
+                <small>
+                    DATES
+                </small>
+
+                <strong>
+                    18 – 20 October 2026
+                </strong>
+
+            </div>
+
+
+
+            <!-- Budget -->
+
+            <div>
+
+                <span>
+                    💰
+                </span>
+
+                <small>
+                    BUDGET
+                </small>
+
+                <strong>
+                    Approx. ₹1,500/person
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- Open Trip Button -->
+
+        <button id="openTrip">
+
+            🎁 OPEN THE TRIP
+
+        </button>
+
+
+        <p class="hint">
+
+            Something exciting is waiting... 👀
+
+        </p>
+
+
+    </section>
+
+
+
+    <!-- =========================================
+         NAME SCREEN
+    ========================================== -->
+
+    <section
+        class="name-screen"
+        id="nameScreen"
+    >
+
+
+        <p class="small-title">
+
+            BEFORE WE START 👀
+
+        </p>
+
+
+        <h1>
+
+            👋 WHAT'S<br>
+
+            <span>
+                YOUR NAME?
+            </span>
+
+        </h1>
+
+
+        <p class="section-subtitle">
+
+            Tell us who's joining the adventure ✨
+
+        </p>
+
+
+
+        <!-- Name Input -->
+
+        <input
+            type="text"
+            id="friendName"
+            placeholder="Enter your name"
+            maxlength="30"
+        >
+
+
+        <br>
+        <br>
+
+
+
+        <!-- Continue -->
+
+        <button
+            class="continue-btn"
+            id="nameContinueBtn"
+            onclick="saveName()"
+        >
+
+            LET'S GO →
+
+        </button>
+
+
+    </section>
+
+
+
+    <!-- =========================================
+         DATE SELECTION SCREEN
+    ========================================== -->
+
+    <section
+        class="date-screen"
+        id="dateScreen"
+    >
+
+
+        <p class="small-title">
+
+            FIRST THINGS FIRST 👀
+
+        </p>
+
+
+        <h1>
+
+            📅 PICK YOUR<br>
+
+            <span>
+                DATE
+            </span>
+
+        </h1>
+
+
+        <p class="section-subtitle">
+
+            Which day are you free for the adventure?
+
+        </p>
+
+
+
+        <!-- =====================================
+             DATE OPTIONS
+        ====================================== -->
+
+        <div class="dates">
+
+
+            <!-- 18 OCTOBER -->
+
+            <button
+                class="date-btn"
+                onclick="selectDate('18 October 2026', this)"
+            >
+
+                <strong>
+                    18
+                </strong>
+
+                <span>
+                    OCTOBER
+                </span>
+
+            </button>
+
+
+
+            <!-- 19 OCTOBER -->
+
+            <button
+                class="date-btn"
+                onclick="selectDate('19 October 2026', this)"
+            >
+
+                <strong>
+                    19
+                </strong>
+
+                <span>
+                    OCTOBER
+                </span>
+
+            </button>
+
+
+
+            <!-- 20 OCTOBER -->
+
+            <button
+                class="date-btn"
+                onclick="selectDate('20 October 2026', this)"
+            >
+
+                <strong>
+                    20
+                </strong>
+
+                <span>
+                    OCTOBER
+                </span>
+
+            </button>
+
+
+        </div>
+
+
+
+        <!-- Continue -->
+
+        <button
+            id="continueBtn"
+            class="continue-btn"
+            onclick="goToActivities()"
+            disabled
+        >
+
+            CONTINUE →
+
+        </button>
+
+
+    </section>
+
+
+
+    <!-- =========================================
+         ADVENTURE CHOICE SCREEN
+    ========================================== -->
+
+    <section
+        class="choice-screen"
+        id="choiceScreen"
+    >
+
+
+        <p class="small-title">
+
+            DATE SELECTED 📅
+
+        </p>
+
+
+        <h1>
+
+            🎒✈️ CHOOSE YOUR<br>
+
+            <span>
+                ADVENTURE ✨🌍
+            </span>
+
+        </h1>
+
+
+
+        <!-- Selected Date -->
+
+        <p
+            class="selected-date"
+            id="selectedDateText"
+        >
+
+        </p>
+
+
+        <p class="choice-subtitle">
+
+            ✨ Where are we going to make memories? 👀
+
+        </p>
+
+
+
+        <!-- =====================================
+             ACTIVITY OPTIONS
+        ====================================== -->
+
+        <div class="options">
+
+
+
+            <!-- =================================
+                 WATER PARK
+            ================================== -->
+
+            <div class="option-card">
+
+
+                <!-- Image -->
+
+                <div class="activity-image">
+
+                    <img
+                        src="./waterpark.jpg"
+                        alt="Water Park"
+                    >
+
+
+                    <div class="image-overlay">
+
+                        <span>
+                            💦
+                        </span>
+
+                        <p>
+                            SPLASH DAY
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Content -->
+
+                <div class="activity-content">
+
+
+                    <span class="activity-tag">
+
+                        🌊 SPLASH & FUN
+
+                    </span>
+
+
+                    <h2>
+
+                        Water Park
+
+                    </h2>
+
+
+                    <p>
+
+                        Slides • Pools • Adventure
+
+                    </p>
+
+
+
+                    <!-- Activities -->
+
+                    <div class="activity-details">
+
+
+                        <span>
+                            🏊 Swimming
+                        </span>
+
+
+                        <span>
+                            🎢 Slides
+                        </span>
+
+
+                        <span>
+                            📸 Photos
+                        </span>
+
+
+                    </div>
+
+
+
+                    <!-- Budget -->
+
+                    <div class="budget">
+
+                        💰 ₹1,200 – ₹1,500/person
+
+                    </div>
+
+
+
+                    <!-- Choose -->
+
+                    <button
+                        class="choose-btn"
+                        onclick="chooseTrip('Water Park')"
+                    >
+
+                        💦 I'M IN
+
+                    </button>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================
+                 TRAMPOLINE + GAMING
+            ================================== -->
+
+            <div class="option-card">
+
+
+                <!-- Image -->
+
+                <div class="activity-image">
+
+                    <img
+                        src="./trampoline.jpg"
+                        alt="Trampoline Park"
+                    >
+
+
+                    <div class="image-overlay">
+
+                        <span>
+                            🤸
+                        </span>
+
+                        <p>
+                            PLAY DAY
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Content -->
+
+                <div class="activity-content">
+
+
+                    <span class="activity-tag">
+
+                        ⚡ JUMP & PLAY
+
+                    </span>
+
+
+                    <h2>
+
+                        Trampoline + Gaming
+
+                    </h2>
+
+
+                    <p>
+
+                        Jump • Games • Chaos
+
+                    </p>
+
+
+
+                    <div class="activity-details">
+
+
+                        <span>
+                            🤸 Trampoline
+                        </span>
+
+
+                        <span>
+                            🎮 Gaming
+                        </span>
+
+
+                        <span>
+                            😂 Fun
+                        </span>
+
+
+                    </div>
+
+
+
+                    <div class="budget">
+
+                        💰 ₹1,300 – ₹1,700/person
+
+                    </div>
+
+
+
+                    <button
+                        class="choose-btn"
+                        onclick="chooseTrip('Trampoline + Gaming')"
+                    >
+
+                        🤸 I'M IN
+
+                    </button>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================
+                 UNIVRSE GAMING ARCADE
+            ================================== -->
+
+            <div class="option-card">
+
+
+                <!-- Image -->
+
+                <div class="activity-image">
+
+                    <img
+                        src="./univrse.jpg"
+                        alt="Univrse Gaming Arcade"
+                    >
+
+
+                    <div class="image-overlay">
+
+                        <span>
+                            🎮
+                        </span>
+
+                        <p>
+                            GAME DAY
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Content -->
+
+                <div class="activity-content">
+
+
+                    <span class="activity-tag">
+
+                        🎮 PLAY & COMPETE
+
+                    </span>
+
+
+                    <h2>
+
+                        Univrse Gaming Arcade
+
+                    </h2>
+
+
+                    <p>
+
+                        Arcade • VR • Competition
+
+                    </p>
+
+
+
+                    <div class="activity-details">
+
+
+                        <span>
+                            🎮 Arcade
+                        </span>
+
+
+                        <span>
+                            🥽 VR
+                        </span>
+
+
+                        <span>
+                            🏆 Games
+                        </span>
+
+
+                    </div>
+
+
+
+                    <div class="budget">
+
+                        💰 Approx. ₹1,500/person
+
+                    </div>
+
+
+
+                    <button
+                        class="choose-btn"
+                        onclick="chooseTrip('Univrse Gaming Arcade')"
+                    >
+
+                        🎮 I'M IN
+
+                    </button>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =========================================
+         RESULT SCREEN
+    ========================================== -->
+
+    <section
+        class="result-screen"
+        id="resultScreen"
+    >
+
+
+        <!-- Celebration -->
+
+        <div class="result-icon">
+
+            🎉
+
+        </div>
+
+
+        <p class="small-title">
+
+            YOUR ADVENTURE IS LOCKED
+
+        </p>
+
+
+        <h1>
+
+            LET'S <span>GO!</span>
+
+        </h1>
+
+
+
+        <!-- Final Choice -->
+
+        <div class="final-card">
+
+            <p id="resultMessage"></p>
+
+        </div>
+
+
+
+        <p class="final-text">
+
+            Get ready for an unforgettable day with the gang. 🥳
+
+        </p>
+
+
+
+        <!-- Change Choice -->
+
+        <button onclick="goBack()">
+
+            ← CHANGE MY CHOICE
+
+        </button>
+
+
+    </section>
+
+
+
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================== -->
+
+    <script src="script.js"></script>
+
+
+</body>
+
+</html>
