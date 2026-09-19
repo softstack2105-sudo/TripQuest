@@ -1,11 +1,11 @@
 const express = require("express");
-const mysql = require("mysql2");
+const { Pool } = require("pg");
 const cors = require("cors");
 const path = require("path");
 
 const app = express();
-const PORT = 3000;
 
+const PORT = process.env.PORT || 3000;
 
 // =========================================
 // MIDDLEWARE
@@ -14,83 +14,87 @@ const PORT = 3000;
 app.use(cors());
 app.use(express.json());
 
-
 // =========================================
 // SERVE TRIPQUEST FRONTEND FILES
 // =========================================
 
 app.use(express.static(__dirname));
 
-
 // =========================================
-// MYSQL CONNECTION
-// =========================================
-
-const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "tripquest"
-});
-
-
-// =========================================
-// CONNECT TO MYSQL
+// POSTGRESQL CONNECTION
 // =========================================
 
-db.connect((err) => {
-
-    if (err) {
-
-        console.error("❌ MySQL connection failed:");
-        console.error(err.message);
-
-        return;
+const db = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
     }
-
-    console.log("✅ Connected to MySQL database!");
-
 });
 
+// =========================================
+// TEST DATABASE CONNECTION
+// =========================================
+
+db.connect()
+    .then((client) => {
+        console.log("✅ Connected to PostgreSQL database!");
+        client.release();
+    })
+    .catch((err) => {
+        console.error("❌ PostgreSQL connection failed:");
+        console.error(err.message);
+    });
 
 // =========================================
 // TRIPQUEST WEBSITE
 // =========================================
 
 app.get("/", (req, res) => {
-
-    res.sendFile(
-        path.join(__dirname, "index.html")
-    );
-
+    res.sendFile(path.join(__dirname, "index.html"));
 });
-
 
 // =========================================
 // TEST BACKEND
 // =========================================
 
 app.get("/api/test", (req, res) => {
-
     res.json({
-
         message: "TripQuest backend is working 🚀"
-
     });
-
 });
 
+// =========================================
+// CREATE VOTES TABLE
+// =========================================
+
+const createTable = `
+    CREATE TABLE IF NOT EXISTS votes (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(100) NOT NULL,
+        selected_date VARCHAR(50) NOT NULL,
+        activity VARCHAR(100) NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+`;
+
+db.query(createTable)
+    .then(() => {
+        console.log("✅ Votes table is ready!");
+    })
+    .catch((err) => {
+        console.error("❌ Could not create votes table:");
+        console.error(err.message);
+    });
 
 // =========================================
 // SAVE VOTE
 // =========================================
 
-app.post("/api/vote", (req, res) => {
+app.post("/api/vote", async (req, res) => {
 
     const name = req.body.name;
     const selectedDate = req.body.selectedDate;
     const activity = req.body.activity;
-
 
     console.log("");
     console.log("📩 Vote received:");
@@ -98,88 +102,51 @@ app.post("/api/vote", (req, res) => {
     console.log("Date:", selectedDate);
     console.log("Activity:", activity);
 
-
-    // Check required information
-
     if (!name || !selectedDate || !activity) {
-
         return res.status(400).json({
-
-            message:
-                "Please provide name, date and activity."
-
+            message: "Please provide name, date and activity."
         });
-
     }
-
-
-    // SQL query
 
     const sql = `
         INSERT INTO votes
         (name, selected_date, activity)
-        VALUES (?, ?, ?)
+        VALUES ($1, $2, $3)
+        RETURNING id
     `;
 
+    try {
 
-    // Save vote in MySQL
+        const result = await db.query(
+            sql,
+            [name, selectedDate, activity]
+        );
 
-    db.query(
-        sql,
-        [name, selectedDate, activity],
-        (err, result) => {
+        console.log("✅ Vote saved successfully!");
+        console.log("Vote ID:", result.rows[0].id);
 
-            if (err) {
+        res.status(200).json({
+            message: "Vote saved successfully!",
+            voteId: result.rows[0].id
+        });
 
-                console.error(
-                    "❌ Error saving vote:"
-                );
+    } catch (err) {
 
-                console.error(err.message);
+        console.error("❌ Error saving vote:");
+        console.error(err.message);
 
-
-                return res.status(500).json({
-
-                    message:
-                        "Could not save vote."
-
-                });
-
-            }
-
-
-            console.log(
-                "✅ Vote saved successfully!"
-            );
-
-            console.log(
-                "Vote ID:",
-                result.insertId
-            );
-
-
-            res.status(200).json({
-
-                message:
-                    "Vote saved successfully!",
-
-                voteId:
-                    result.insertId
-
-            });
-
-        }
-    );
-
+        res.status(500).json({
+            message: "Could not save vote."
+        });
+    }
 });
-
 
 // =========================================
 // GET ALL VOTES
 // ADMIN DASHBOARD
 // =========================================
 
-app.get("/api/votes", (req, res) => {
+app.get("/api/votes", async (req, res) => {
 
     const sql = `
         SELECT
@@ -192,67 +159,36 @@ app.get("/api/votes", (req, res) => {
         ORDER BY created_at DESC
     `;
 
+    try {
 
-    db.query(
-        sql,
-        (err, results) => {
+        const result = await db.query(sql);
 
-            if (err) {
+        console.log("📊 Votes sent to Admin Dashboard");
 
-                console.error(
-                    "❌ Error fetching votes:"
-                );
+        res.json(result.rows);
 
-                console.error(
-                    err.message
-                );
+    } catch (err) {
 
+        console.error("❌ Error fetching votes:");
+        console.error(err.message);
 
-                return res.status(500).json({
-
-                    message:
-                        "Could not fetch votes."
-
-                });
-
-            }
-
-
-            console.log(
-                "📊 Votes sent to Admin Dashboard"
-            );
-
-
-            res.json(results);
-
-        }
-    );
-
+        res.status(500).json({
+            message: "Could not fetch votes."
+        });
+    }
 });
-
 
 // =========================================
 // START SERVER
 // =========================================
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
 
     console.log("");
 
-    console.log(
-        "========================================"
-    );
-
-    console.log(
-        "🚀 TripQuest website and server running!"
-    );
-
-    console.log(
-        `🌐 http://localhost:${PORT}`
-    );
-
-    console.log(
-        "========================================"
-    );
+    console.log("========================================");
+    console.log("🚀 TripQuest website and server running!");
+    console.log(`🌐 Port: ${PORT}`);
+    console.log("========================================");
 
 });
