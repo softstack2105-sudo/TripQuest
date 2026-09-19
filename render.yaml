@@ -1,8 +1,0 @@
-services:
-  - type: web
-    name: TripQuest
-    runtime: node
-    buildCommand: npm install
-    startCommand: node server.js
-    envVars:
-      - fromGroup: tripquest-admin
